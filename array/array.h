@@ -43,4 +43,6 @@ void array_remove(array_t *array, int item);
 // Returns the index of the first occurrence of the given item, or -1 if it was not found.
 int array_find(array_t *array, int item);
 
+void array_free(array_t *array);
+
 #endif
