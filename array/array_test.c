@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdio.h>
 #include "array.h"
 
 int main()
@@ -20,6 +21,18 @@ int main()
     assert(array_capacity(arr) == (initial_capacity * 2));
     assert(array_size(arr) == 3);
     assert(array_is_empty(arr) == 0);
+
+    printf("Before:\n");
+    for (int i = 0; i < arr->size; i++) {
+        printf("arr[%d] = %d\n", i, *(arr->items + i));
+    }
+
+    array_insert(arr, 3, 4);
+
+    printf("After:\n");
+    for (int i = 0; i < arr->size; i++) {
+        printf("arr[%d] = %d\n", i, *(arr->items + i));
+    }
 
     array_free(arr);
     return 0;

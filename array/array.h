@@ -26,7 +26,7 @@ int array_at(array_t *array, int index);
 void array_push(array_t *array, int item);
 
 // Inserts an item at the given index, shifting the following items forward, if any.
-void array_insert(array_t *array, int item);
+void array_insert(array_t *array, int index, int item);
 
 // Inserts an item at the start of the array, shifting the following items forward, if any.
 void array_prepend(array_t *array, int item);
