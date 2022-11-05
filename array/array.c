@@ -65,16 +65,28 @@ void array_push(array_t *array, int item)
 
 void array_insert(array_t *array, int index, int item)
 {
+    if (index < 0 || index > array->size) {
+        printf("error: array index %d out of bounds.\n", index);
+        exit(EXIT_FAILURE);
+    }
+
     if (array->size == array->capacity) {
         array_resize(array, array->capacity * 2);
     }
 
-    // move all the items starting from the given index by 1 block at once so it's O(1),
-    // then insert the new item in the freed block.
-    memmove(array->items + index + 1, array->items + index, (array->size - index) * sizeof(int));
+    if (array->size > 0) {
+        // move all the items starting from the given index by 1 block at once so it's O(1),
+        // then insert the new item in the freed block.
+        memmove(array->items + index + 1, array->items + index, (array->size - index) * sizeof(int));
+    }
 
     *(array->items + index) = item;
     array->size++;
+}
+
+void array_prepend(array_t *array, int item)
+{
+    array_insert(array, 0, item);
 }
 
 void array_free(array_t *array)

@@ -28,6 +28,7 @@ int main()
     }
 
     array_insert(arr, 3, 4);
+    array_prepend(arr, 5);
 
     printf("After:\n");
     for (int i = 0; i < arr->size; i++) {
