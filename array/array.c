@@ -89,6 +89,25 @@ void array_prepend(array_t *array, int item)
     array_insert(array, 0, item);
 }
 
+int array_pop(array_t *array)
+{
+    if (array->size == 0) {
+        printf("error: cannot pop an item from an empty array.");
+        exit(EXIT_FAILURE);
+    }
+
+    if ((array->size / array->capacity) <= 0.25) {
+        // resize to half capacity if only 25% of the array's capacity is used
+        array_resize(array, array->capacity / 2);
+    }
+
+    int item = *(array->items + array->size - 1);
+    *(array->items + array->size - 1) = 0;
+    array->size--;
+
+    return item;
+}
+
 void array_free(array_t *array)
 {
     free(array->items);

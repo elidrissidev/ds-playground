@@ -35,6 +35,9 @@ int main()
         printf("arr[%d] = %d\n", i, *(arr->items + i));
     }
 
+    assert(array_pop(arr) == 4);
+    assert(array_pop(arr) == 3);
+
     array_free(arr);
     return 0;
 }
