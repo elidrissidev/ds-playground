@@ -125,6 +125,16 @@ void array_delete(array_t *array, int index)
     }
 }
 
+int array_find(array_t *array, int item)
+{
+    for (int i = 0; i < array->size; i++) {
+        if (*(array->items + i) == item) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 void array_free(array_t *array)
 {
     free(array->items);
