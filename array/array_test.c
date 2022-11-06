@@ -27,16 +27,12 @@ int main()
         printf("arr[%d] = %d\n", i, *(arr->items + i));
     }
 
-    array_insert(arr, 3, 4);
-    array_prepend(arr, 5);
+    array_delete(arr, 0);
 
     printf("After:\n");
     for (int i = 0; i < arr->size; i++) {
         printf("arr[%d] = %d\n", i, *(arr->items + i));
     }
-
-    assert(array_pop(arr) == 4);
-    assert(array_pop(arr) == 3);
 
     array_free(arr);
     return 0;

@@ -108,6 +108,23 @@ int array_pop(array_t *array)
     return item;
 }
 
+void array_delete(array_t *array, int index)
+{
+    if (index < 0 || index >= array->size) {
+        printf("error: array index %d out of bounds.\n", index);
+        exit(EXIT_FAILURE);
+    }
+
+    memmove(array->items + index, array->items + index + 1, (array->size - index - 1) * sizeof(int));
+
+    array->size--;
+
+    if ((array->size / array->capacity) <= 0.25) {
+        // resize to half capacity if only 25% of the array's capacity is used
+        array_resize(array, array->capacity / 2);
+    }
+}
+
 void array_free(array_t *array)
 {
     free(array->items);
