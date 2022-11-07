@@ -5,6 +5,8 @@
 
 static void array_resize(array_t *array, int new_capacity)
 {
+    printf("resizing array from capacity %d to %d.\n", array->capacity, new_capacity);
+
     int *new_items = realloc(array->items, new_capacity * sizeof(int));
 
     if (new_items == NULL) {
@@ -115,13 +117,24 @@ void array_delete(array_t *array, int index)
         exit(EXIT_FAILURE);
     }
 
-    memmove(array->items + index, array->items + index + 1, (array->size - index - 1) * sizeof(int));
+    // when deleting the last index, there's no trailing items to move back
+    if (index < (array->size - 1)) {
+        memmove(array->items + index, array->items + index + 1, (array->size - index - 1) * sizeof(int));
+    }
 
     array->size--;
 
     if ((array->size / array->capacity) <= 0.25) {
         // resize to half capacity if only 25% of the array's capacity is used
         array_resize(array, array->capacity / 2);
+    }
+}
+
+void array_remove(array_t *array, int item)
+{
+    int i;
+    while ((i = array_find(array, item)) != -1) {
+        array_delete(array, i);
     }
 }
 
