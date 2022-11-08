@@ -98,7 +98,7 @@ int array_pop(array_t *array)
         exit(EXIT_FAILURE);
     }
 
-    if ((array->size / array->capacity) <= 0.25) {
+    if (((float)array->size / (float)array->capacity) <= 0.25) {
         // resize to half capacity if only 25% of the array's capacity is used
         array_resize(array, array->capacity / 2);
     }
@@ -124,7 +124,7 @@ void array_delete(array_t *array, int index)
 
     array->size--;
 
-    if ((array->size / array->capacity) <= 0.25) {
+    if (((float)array->size / (float)array->capacity) <= 0.25) {
         // resize to half capacity if only 25% of the array's capacity is used
         array_resize(array, array->capacity / 2);
     }
