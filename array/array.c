@@ -5,8 +5,6 @@
 
 static void array_resize(array_t *array, int new_capacity)
 {
-    printf("resizing array from capacity %d to %d.\n", array->capacity, new_capacity);
-
     int *new_items = realloc(array->items, new_capacity * sizeof(int));
 
     if (new_items == NULL) {
