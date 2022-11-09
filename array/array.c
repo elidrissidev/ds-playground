@@ -18,6 +18,14 @@ static void array_resize(array_t *array, int new_capacity)
     array->items = new_items;
 }
 
+static void array_validate_index(array_t *array, int index)
+{
+    if (index < 0 || index >= array->size) {
+        printf("error: array index %d out of boundary.\n", index);
+        exit(EXIT_FAILURE);
+    }
+}
+
 array_t *array_init(int capacity)
 {
     int *items = malloc(capacity * sizeof(int));
@@ -47,10 +55,7 @@ int array_is_empty(array_t *array)
 
 int array_at(array_t *array, int index)
 {
-    if (index < 0 || index >= array->size) {
-        printf("error: array index %d out of bounds.\n", index);
-        exit(EXIT_FAILURE);
-    }
+    array_validate_index(array, index);
 
     return *(array->items + index);
 }
@@ -67,10 +72,7 @@ void array_push(array_t *array, int item)
 
 void array_insert(array_t *array, int index, int item)
 {
-    if (index < 0 || index > array->size) {
-        printf("error: array index %d out of bounds.\n", index);
-        exit(EXIT_FAILURE);
-    }
+    array_validate_index(array, index);
 
     if (array->size == array->capacity) {
         array_resize(array, array->capacity * 2);
@@ -112,10 +114,7 @@ int array_pop(array_t *array)
 
 void array_delete(array_t *array, int index)
 {
-    if (index < 0 || index >= array->size) {
-        printf("error: array index %d out of bounds.\n", index);
-        exit(EXIT_FAILURE);
-    }
+    array_validate_index(array, index);
 
     // when deleting the last index, there's no trailing items to move back
     if (index < (array->size - 1)) {
