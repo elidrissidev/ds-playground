@@ -29,6 +29,11 @@ array_t *array_init(int capacity)
     int *items = malloc(capacity * sizeof(int));
     array_t *arr = malloc(sizeof(array_t));
 
+    if (items == NULL || arr == NULL) {
+        printf("error: could not allocate the resources needed for the array.\n");
+        exit(EXIT_FAILURE);
+    }
+
     arr->size = 0;
     arr->capacity = capacity;
     arr->items = items;
