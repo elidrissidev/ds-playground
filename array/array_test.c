@@ -29,11 +29,25 @@ int main()
     array_insert(arr, 0, 99);
     array_insert(arr, 2, 99);
     array_insert(arr, 4, 99);
+
+    array_delete(arr, 1); // deletes the additional "1" at index 1
     array_remove(arr, 99);
 
     assert(array_find(arr, 99) == -1);
+    assert(array_capacity(arr) == initial_capacity * 2 * 2);
+    assert(array_size(arr) == 4);
 
-    // If everything works fine, at the end we should have the first x digits from fib sequence!
+    array_push(arr, 5);
+    array_push(arr, 8);
+
+    assert(array_pop(arr) == 8);
+
+    // If everything works fine, at the end we should have the first 5 digits from fib sequence!
+    assert(array_at(arr, 0) == 1);
+    assert(array_at(arr, 1) == 1);
+    assert(array_at(arr, 2) == 2);
+    assert(array_at(arr, 3) == 3);
+    assert(array_at(arr, 4) == 5);
 
     array_free(arr);
     return 0;
