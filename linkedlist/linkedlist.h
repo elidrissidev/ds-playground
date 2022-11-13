@@ -32,6 +32,15 @@ int linkedlist_pop_front(linkedlist_t *list);
 // Inserts an element at the end of the list.
 void linkedlist_push_back(linkedlist_t *list, int value);
 
+// Removes and returns an element from the end of the list.
+int linkedlist_pop_back(linkedlist_t *list);
+
+// Returns the first element on the list.
+int linkedlist_front(linkedlist_t *list);
+
+// Returns the last element on the list.
+int linkedlist_back(linkedlist_t *list);
+
 // Free all the resources held by the list. After this function is called, the list is no longer usable.
 void linkedlist_free(linkedlist_t *list);
 
