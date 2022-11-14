@@ -157,6 +157,26 @@ int linkedlist_back(linkedlist_t *list)
     return linkedlist_value_at(list, list->size - 1);
 }
 
+void linkedlist_erase(linkedlist_t *list, int index)
+{
+    linkedlist_validate_index(list, index);
+
+    int i = 0;
+    node_t *current_node = list->head;
+    node_t *next_node = current_node->next;
+
+    while (i < (index - 1)) {
+        current_node = next_node;
+        next_node = next_node->next;
+        i++;
+    }
+
+    current_node->next = next_node->next;
+
+    free(next_node);
+    list->size--;
+}
+
 void linkedlist_free(linkedlist_t *list)
 {
     node_t *current_node = list->head;

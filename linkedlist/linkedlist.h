@@ -41,6 +41,9 @@ int linkedlist_front(linkedlist_t *list);
 // Returns the last element on the list.
 int linkedlist_back(linkedlist_t *list);
 
+// Removes an element at the given index.
+void linkedlist_erase(linkedlist_t *list, int index);
+
 // Free all the resources held by the list. After this function is called, the list is no longer usable.
 void linkedlist_free(linkedlist_t *list);
 
