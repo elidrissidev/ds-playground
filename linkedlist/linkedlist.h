@@ -44,6 +44,9 @@ int linkedlist_back(linkedlist_t *list);
 // Removes an element at the given index.
 void linkedlist_erase(linkedlist_t *list, int index);
 
+// Returns the value at the nth position from the end of the list (1-based).
+int linkedlist_value_n_from_end(linkedlist_t *list, int n);
+
 // Free all the resources held by the list. After this function is called, the list is no longer usable.
 void linkedlist_free(linkedlist_t *list);
 

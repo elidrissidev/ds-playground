@@ -177,6 +177,16 @@ void linkedlist_erase(linkedlist_t *list, int index)
     list->size--;
 }
 
+int linkedlist_value_n_from_end(linkedlist_t *list, int n)
+{
+    if (n < 1 || n > list->size) {
+        printf("error: n must be a number between 1 and %d.\n", list->size);
+        exit(EXIT_FAILURE);
+    }
+
+    return linkedlist_value_at(list, list->size - n);
+}
+
 void linkedlist_free(linkedlist_t *list)
 {
     node_t *current_node = list->head;
