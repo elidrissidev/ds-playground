@@ -171,9 +171,13 @@ void linkedlist_erase(linkedlist_t *list, int index)
         i++;
     }
 
-    current_node->next = next_node->next;
-
-    free(next_node);
+    if (index == 0) {
+        list->head = next_node;
+        free(current_node);
+    } else {
+        current_node->next = next_node->next;
+        free(next_node);
+    }
     list->size--;
 }
 
