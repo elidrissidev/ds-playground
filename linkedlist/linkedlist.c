@@ -19,7 +19,13 @@ linkedlist_t *linkedlist_init()
         exit(EXIT_FAILURE);
     }
 
-    list->head = NULL;
+    // we're going to use a dummy/sentinel node for the head element
+    // for a simpler implementation of certain functionalities of the list.
+    node_t *dummy_head = malloc(sizeof(node_t));
+    dummy_head->next = NULL;
+    dummy_head->value = 0;
+
+    list->head = dummy_head;
     list->size = 0;
 
     return list;
@@ -40,31 +46,33 @@ int linkedlist_value_at(linkedlist_t *list, int index)
     linkedlist_validate_index(list, index);
 
     int i = 0;
-    node_t *next_node = list->head;
+    node_t *node = list->head->next;
 
-    while (next_node != NULL) {
+    while (node != NULL) {
         if (i == index) {
             break;
         }
 
         i++;
-        next_node = next_node->next;
+        node = node->next;
     }
 
-    return next_node->value;
+    return node->value;
 }
 
 void linkedlist_push_front(linkedlist_t *list, int value)
 {
-    node_t *node = malloc(sizeof(node_t));
-    node->next = NULL;
-    node->value = value;
+    node_t *new_node = malloc(sizeof(node_t));
+    new_node->next = NULL;
+    new_node->value = value;
 
-    if (list->head != NULL) {
-        node->next = list->head;
+    node_t *head_node = list->head->next;
+
+    if (head_node != NULL) {
+        new_node->next = head_node;
     }
 
-    list->head = node;
+    list->head->next = new_node;
     list->size++;
 }
 
@@ -75,34 +83,30 @@ int linkedlist_pop_front(linkedlist_t *list)
         exit(EXIT_FAILURE);
     }
 
-    node_t *node = list->head;
-    int value = node->value;
+    node_t *head_node = list->head->next;
+    int value = head_node->value;
 
-    list->head = node->next;
+    head_node = head_node->next;
     list->size--;
 
-    free(node);
+    free(head_node);
 
     return value;
 }
 
 void linkedlist_push_back(linkedlist_t *list, int value)
 {
-    node_t *node = malloc(sizeof(node_t));
-    node->next = NULL;
-    node->value = value;
+    node_t *new_node = malloc(sizeof(node_t));
+    new_node->next = NULL;
+    new_node->value = value;
 
-    if (list->head == NULL) {
-        list->head = node;
-    } else {
-        node_t *last_node = list->head;
+    node_t *last_node = list->head;
 
-        while (last_node->next != NULL) {
-            last_node = last_node->next;
-        }
-
-        last_node->next = node;
+    while (last_node->next != NULL) {
+        last_node = last_node->next;
     }
+
+    last_node->next = new_node;
 
     list->size++;
 }
@@ -116,12 +120,6 @@ int linkedlist_pop_back(linkedlist_t *list)
 
     node_t *current_node = list->head;
     node_t *next_node = current_node->next;
-
-    // TODO: can this be written in a better way? it's a bit difficult to understand ATM
-    if (next_node == NULL) {
-        current_node = list->head;
-        next_node = list->head;
-    }
 
     while (next_node->next != NULL) {
         current_node = next_node;
