@@ -118,19 +118,19 @@ int linkedlist_pop_back(linkedlist_t *list)
         exit(EXIT_FAILURE);
     }
 
-    node_t *current_node = list->head;
-    node_t *next_node = current_node->next;
+    node_t *prev_node = list->head;
+    node_t *tail_node = prev_node->next;
 
-    while (next_node->next != NULL) {
-        current_node = next_node;
-        next_node = next_node->next;
+    while (tail_node->next != NULL) {
+        prev_node = tail_node;
+        tail_node = tail_node->next;
     }
 
-    int value = next_node->value;
-    current_node->next = NULL;
-    list->size--;
+    prev_node->next = NULL;
+    int value = tail_node->value;
 
-    free(next_node);
+    free(tail_node);
+    list->size--;
 
     return value;
 }
@@ -142,7 +142,8 @@ int linkedlist_front(linkedlist_t *list)
         exit(EXIT_FAILURE);
     }
 
-    return list->head->value;
+    node_t *head_node = list->head->next;
+    return head_node->value;
 }
 
 int linkedlist_back(linkedlist_t *list)
@@ -160,22 +161,19 @@ void linkedlist_erase(linkedlist_t *list, int index)
     linkedlist_validate_index(list, index);
 
     int i = 0;
-    node_t *current_node = list->head;
-    node_t *next_node = current_node->next;
+    node_t *prev_node = list->head;
+    node_t *erased_node = prev_node->next;
 
     while (i < (index - 1)) {
-        current_node = next_node;
-        next_node = next_node->next;
+        prev_node = erased_node;
+        erased_node = erased_node->next;
         i++;
     }
 
-    if (index == 0) {
-        list->head = next_node;
-        free(current_node);
-    } else {
-        current_node->next = next_node->next;
-        free(next_node);
-    }
+    prev_node->next = erased_node->next;
+
+    free(erased_node);
+
     list->size--;
 }
 
@@ -191,14 +189,14 @@ int linkedlist_value_n_from_end(linkedlist_t *list, int n)
 
 void linkedlist_free(linkedlist_t *list)
 {
-    node_t *current_node = list->head;
+    node_t *node = list->head;
 
-    while (current_node != NULL) {
-        node_t *next_node = current_node->next;
+    while (node != NULL) {
+        node_t *next_node = node->next;
 
-        free(current_node);
+        free(node);
 
-        current_node = next_node;
+        node = next_node;
     }
 
     free(list);
