@@ -156,6 +156,27 @@ int linkedlist_back(linkedlist_t *list)
     return linkedlist_value_at(list, list->size - 1);
 }
 
+void linkedlist_insert(linkedlist_t *list, int index, int value)
+{
+    linkedlist_validate_index(list, index);
+
+    int i = 0;
+    node_t *prev_node = list->head;
+
+    while (i < (index - 1)) {
+        prev_node = prev_node->next;
+        i++;
+    }
+
+    node_t *new_node = malloc(sizeof(node_t));
+    new_node->next = prev_node->next;
+    new_node->value = value;
+
+    prev_node->next = new_node;
+
+    list->size++;
+}
+
 void linkedlist_erase(linkedlist_t *list, int index)
 {
     linkedlist_validate_index(list, index);
@@ -185,6 +206,31 @@ int linkedlist_value_n_from_end(linkedlist_t *list, int n)
     }
 
     return linkedlist_value_at(list, list->size - n);
+}
+
+void linkedlist_remove_value(linkedlist_t *list, int value)
+{
+    if (list->size == 0) {
+        printf("error: cannot remove a value from an empty list.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    node_t *prev_node = list->head;
+    node_t *removed_node = prev_node->next;
+
+    while (removed_node != NULL) {
+        if (removed_node->value == value) {
+            break;
+        }
+        prev_node = removed_node;
+        removed_node = removed_node->next;
+    }
+
+    prev_node->next = removed_node->next;
+
+    free(removed_node);
+
+    list->size--;
 }
 
 void linkedlist_free(linkedlist_t *list)
