@@ -233,6 +233,23 @@ void linkedlist_remove_value(linkedlist_t *list, int value)
     list->size--;
 }
 
+static node_t *linkedlist_recursive_reverse(linkedlist_t *list, node_t *node)
+{
+    if (node->next == NULL) {
+        list->head->next = node;
+    } else {
+        node_t *next_node = linkedlist_recursive_reverse(list, node->next);
+        next_node->next = node;
+    }
+    return node;
+}
+
+void linkedlist_reverse(linkedlist_t *list)
+{
+    node_t *tail_node = linkedlist_recursive_reverse(list, list->head->next);
+    tail_node->next = NULL;
+}
+
 void linkedlist_free(linkedlist_t *list)
 {
     node_t *node = list->head;

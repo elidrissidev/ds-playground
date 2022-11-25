@@ -53,6 +53,9 @@ int linkedlist_value_n_from_end(linkedlist_t *list, int n);
 // Removes the first occurrence of the given value from the list.
 void linkedlist_remove_value(linkedlist_t *list, int value);
 
+// Reverses all the elements in the list.
+void linkedlist_reverse(linkedlist_t *list);
+
 // Free all the resources held by the list. After this function is called, the list is no longer usable.
 void linkedlist_free(linkedlist_t *list);
 
