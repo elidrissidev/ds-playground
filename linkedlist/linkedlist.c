@@ -163,7 +163,7 @@ void linkedlist_insert(linkedlist_t *list, int index, int value)
     int i = 0;
     node_t *prev_node = list->head;
 
-    while (i < (index - 1)) {
+    while (i < index) {
         prev_node = prev_node->next;
         i++;
     }
