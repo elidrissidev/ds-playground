@@ -86,7 +86,7 @@ int linkedlist_pop_front(linkedlist_t *list)
     node_t *head_node = list->head->next;
     int value = head_node->value;
 
-    head_node = head_node->next;
+    list->head->next = head_node->next;
     list->size--;
 
     free(head_node);
