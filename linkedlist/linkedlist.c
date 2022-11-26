@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include "linkedlist.h"
 
-static void linkedlist_validate_index(linkedlist_t *list, int index)
+static void linkedlist_validate_index(linkedlist_t *list, int index, int upper_bound)
 {
-    if (index < 0 || index >= list->size) {
+    if (index < 0 || index >= upper_bound) {
         printf("error: index %d out of boundary.\n", index);
         exit(EXIT_FAILURE);
     }
@@ -43,7 +43,7 @@ int linkedlist_is_empty(linkedlist_t *list)
 
 int linkedlist_value_at(linkedlist_t *list, int index)
 {
-    linkedlist_validate_index(list, index);
+    linkedlist_validate_index(list, index, list->size);
 
     int i = 0;
     node_t *node = list->head->next;
@@ -158,7 +158,7 @@ int linkedlist_back(linkedlist_t *list)
 
 void linkedlist_insert(linkedlist_t *list, int index, int value)
 {
-    linkedlist_validate_index(list, index);
+    linkedlist_validate_index(list, index, list->size + 1);
 
     int i = 0;
     node_t *prev_node = list->head;
@@ -179,7 +179,7 @@ void linkedlist_insert(linkedlist_t *list, int index, int value)
 
 void linkedlist_erase(linkedlist_t *list, int index)
 {
-    linkedlist_validate_index(list, index);
+    linkedlist_validate_index(list, index, list->size);
 
     int i = 0;
     node_t *prev_node = list->head;
