@@ -63,14 +63,8 @@ int linkedlist_value_at(linkedlist_t *list, int index)
 void linkedlist_push_front(linkedlist_t *list, int value)
 {
     node_t *new_node = malloc(sizeof(node_t));
-    new_node->next = NULL;
+    new_node->next = list->head->next;
     new_node->value = value;
-
-    node_t *head_node = list->head->next;
-
-    if (head_node != NULL) {
-        new_node->next = head_node;
-    }
 
     list->head->next = new_node;
     list->size++;
