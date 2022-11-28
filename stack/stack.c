@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "stack.h"
 
-static void stack_resize(stack_t *stack, int new_capacity)
+static void stack_resize(ds_stack_t *stack, int new_capacity)
 {
 	int *new_items = realloc(stack->items, new_capacity * sizeof(int));
 
@@ -15,9 +15,9 @@ static void stack_resize(stack_t *stack, int new_capacity)
 	stack->capacity = new_capacity;
 }
 
-stack_t *stack_init(int capacity)
+ds_stack_t *stack_init(int capacity)
 {
-	stack_t *stack = malloc(sizeof(stack_t));
+	ds_stack_t *stack = malloc(sizeof(ds_stack_t));
 	int *items = malloc(capacity * sizeof(int));
 
 	if (stack == NULL || items == NULL) {
@@ -32,22 +32,22 @@ stack_t *stack_init(int capacity)
 	return stack;
 }
 
-int stack_size(stack_t *stack)
+int stack_size(ds_stack_t *stack)
 {
 	return stack->size;
 }
 
-int stack_capacity(stack_t *stack)
+int stack_capacity(ds_stack_t *stack)
 {
 	return stack->capacity;
 }
 
-int stack_is_empty(stack_t *stack)
+int stack_is_empty(ds_stack_t *stack)
 {
 	return stack->size == 0;
 }
 
-void stack_push(stack_t *stack, int item)
+void stack_push(ds_stack_t *stack, int item)
 {
 	if (stack->size == stack->capacity) {
 		stack_resize(stack, stack->capacity * 2);
@@ -57,7 +57,7 @@ void stack_push(stack_t *stack, int item)
 	stack->size++;
 }
 
-int stack_pop(stack_t *stack)
+int stack_pop(ds_stack_t *stack)
 {
 	if (stack->size == 0) {
 		printf("error: could not pop from an empty stack.\n");
@@ -74,7 +74,7 @@ int stack_pop(stack_t *stack)
 	return item;
 }
 
-int stack_peek(stack_t *stack)
+int stack_peek(ds_stack_t *stack)
 {
 	if (stack->size == 0) {
 		printf("error: could not peek at an empty stack.\n");
@@ -84,7 +84,7 @@ int stack_peek(stack_t *stack)
 	return *(stack->items + stack->size - 1);
 }
 
-void stack_free(stack_t *stack)
+void stack_free(ds_stack_t *stack)
 {
 	free(stack->items);
 	free(stack);

@@ -6,7 +6,7 @@
 int main()
 {
 	int initial_capacity = 4;
-	stack_t *stack = stack_init(initial_capacity);
+	ds_stack_t *stack = stack_init(initial_capacity);
 
 	assert(stack_capacity(stack) == initial_capacity);
 	assert(stack_size(stack) == 0);
