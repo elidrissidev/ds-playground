@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "queue_list.h"
 
+// We could technically use the linkedlist implementation for the queue but I'm choosing not to,
+// to keep it simple, and because the extra functionality of linkedlist (push, pop, remove at index...)
+// doesn't make much sense in a queue anyways.
+
 queue_t *queue_init()
 {
 	queue_t *queue = malloc(sizeof(queue_t));
@@ -37,6 +41,31 @@ void queue_enqueue(queue_t *queue, int value)
 	}
 
 	queue->size++;
+}
+
+int queue_dequeue(queue_t *queue)
+{
+    if (queue->size == 0) {
+        printf("error: could not dequeue from an empty queue.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    node_t *head = queue->head;
+    int value = head->value;
+
+    if (queue->size == 1) {
+        // the element we're dequeuing is the last one,
+        // so we need to clear the tail pointer.
+        queue->head = queue->tail = NULL;
+    } else {
+        queue->head = head->next;
+    }
+
+    free(head);
+
+    queue->size--;
+
+    return value;
 }
 
 int queue_size(queue_t *queue)
