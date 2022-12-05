@@ -29,26 +29,14 @@ void queue_enqueue(queue_t *queue, int value)
     }
 
     *(queue->items + queue->write) = value;
-
-    if (queue->write == queue->capacity) {
-        queue->write = 0;
-    } else {
-        queue->write++;
-    }
-
+    queue->write = (queue->write + 1) % queue->capacity;
     queue->size++;
 }
 
 int queue_dequeue(queue_t *queue)
 {
     int value = *(queue->items + queue->read);
-
-    if (queue->read == queue->capacity) {
-        queue->read = 0;
-    } else {
-        queue->read++;
-    }
-
+    queue->read = (queue->read + 1) % queue->capacity;
     queue->size--;
 
     return value;
