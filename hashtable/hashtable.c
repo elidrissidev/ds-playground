@@ -93,9 +93,11 @@ int hashtable_exists(hashtable_t *ht, const char *key)
 		i = (i + 1) % ht->capacity;
 
 		if (i == starting_index) {
-			return 0;
+			break;
 		}
 	}
+
+    return 0;
 }
 
 int hashtable_get(hashtable_t *ht, const char *key)
@@ -111,10 +113,12 @@ int hashtable_get(hashtable_t *ht, const char *key)
 		i = (i + 1) % ht->capacity;
 
 		if (i == starting_index) {
-			printf("error: could not find a value with key %s\n", key);
-			exit(EXIT_FAILURE);
+			break;
 		}
 	}
+
+    printf("error: could not find a value with key %s\n", key);
+    exit(EXIT_FAILURE);
 }
 
 void hashtable_remove(hashtable_t *ht, const char *key)
