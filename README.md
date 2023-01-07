@@ -1,6 +1,6 @@
-# data-structures-impl
+# data structures and algorithms practice
 
-My playground repository where I'm implementing data-structures using C!
+My playground repository where I'm practicing DSA using C!
 
 ## Running tests
 
