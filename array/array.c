@@ -150,6 +150,14 @@ int array_find(array_t *array, int item)
     return -1;
 }
 
+array_t *array_clone(array_t *array)
+{
+    array_t *clone = array_init(array->capacity);
+    clone->size = array->size;
+    memcpy(clone->items, array->items, array->size * sizeof(int));
+    return clone;
+}
+
 void array_free(array_t *array)
 {
     free(array->items);

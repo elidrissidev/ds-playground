@@ -43,6 +43,9 @@ void array_remove(array_t *array, int item);
 // Returns the index of the first occurrence of the given item, or -1 if it was not found.
 int array_find(array_t *array, int item);
 
+// Returns a new copy of the given array.
+array_t *array_clone(array_t *array);
+
 // Free all the resources held by the array. After this function is called, the array is no longer usable.
 void array_free(array_t *array);
 

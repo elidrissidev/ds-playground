@@ -49,6 +49,15 @@ int main()
     assert(array_at(arr, 3) == 3);
     assert(array_at(arr, 4) == 5);
 
+    // Ensure the cloned version has the same values.
+    array_t *clone = array_clone(arr);
+    assert(array_at(clone, 0) == 1);
+    assert(array_at(clone, 1) == 1);
+    assert(array_at(clone, 2) == 2);
+    assert(array_at(clone, 3) == 3);
+    assert(array_at(clone, 4) == 5);
+
     array_free(arr);
+    array_free(clone);
     return 0;
 }
