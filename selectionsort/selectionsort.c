@@ -16,16 +16,14 @@ array_t *selection_sort(array_t *arr, int dir)
         int size = array_size(unsorted_arr);
 
         for (int i = 1; i < size; i++) {
-            int previous = array_at(unsorted_arr, i - 1);
             int current = array_at(unsorted_arr, i);
-            printf("unsorted_arr[%d]; previous: %d; current: %d\n", i, previous, current);
 
-            if (previous - current > 0) {
-                index = dir == SORT_ASC ? i : i - 1;
-                value = dir == SORT_ASC ? current : previous;
-            } else if (previous - current < 0) {
-                index = dir == SORT_ASC ? i - 1 : i;
-                value = dir == SORT_ASC ? previous : current;
+            if (value - current > 0 && dir == SORT_ASC) {
+                index = i;
+                value = current;
+            } else if (value - current < 0 && dir == SORT_DESC) {
+                index = i;
+                value = current;
             }
         }
 
@@ -38,7 +36,6 @@ array_t *selection_sort(array_t *arr, int dir)
 
 int main()
 {
-    // {64, 12, 22, 31, 15}
     array_t *arr = array_init(8);
     array_push(arr, 64);
     array_push(arr, 12);
@@ -47,11 +44,6 @@ int main()
     array_push(arr, 15);
 
     array_t *asc_arr = selection_sort(arr, SORT_ASC);
-
-    for (int i = 0; i < array_size(asc_arr); i++) {
-        printf("asc_arr[%d] = %d\n", i, array_at(asc_arr, i));
-    }
-
     assert(array_at(asc_arr, 0) == 12);
     assert(array_at(asc_arr, 1) == 15);
     assert(array_at(asc_arr, 2) == 22);
@@ -59,11 +51,18 @@ int main()
     assert(array_at(asc_arr, 4) == 64);
 
     array_t *desc_arr = selection_sort(arr, SORT_DESC);
-    assert(array_at(asc_arr, 0) == 64);
-    assert(array_at(asc_arr, 1) == 31);
-    assert(array_at(asc_arr, 2) == 22);
-    assert(array_at(asc_arr, 3) == 15);
-    assert(array_at(asc_arr, 4) == 12);
+    assert(array_at(desc_arr, 0) == 64);
+    assert(array_at(desc_arr, 1) == 31);
+    assert(array_at(desc_arr, 2) == 22);
+    assert(array_at(desc_arr, 3) == 15);
+    assert(array_at(desc_arr, 4) == 12);
+
+    // Ensure original array remains unchanged
+    assert(array_at(arr, 0) == 64);
+    assert(array_at(arr, 1) == 12);
+    assert(array_at(arr, 2) == 22);
+    assert(array_at(arr, 3) == 31);
+    assert(array_at(arr, 4) == 15);
 
     array_free(arr);
     array_free(asc_arr);
