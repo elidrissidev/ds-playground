@@ -31,6 +31,9 @@ void array_insert(array_t *array, int index, int item);
 // Inserts an item at the start of the array, shifting the following items forward, if any.
 void array_prepend(array_t *array, int item);
 
+// Update an item at the given index.
+void array_set(array_t *array, int index, int item);
+
 // Removes and returns an item from the end of the array.
 int array_pop(array_t *array);
 

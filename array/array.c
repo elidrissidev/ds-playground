@@ -96,6 +96,13 @@ void array_prepend(array_t *array, int item)
     array_insert(array, 0, item);
 }
 
+void array_set(array_t *array, int index, int item)
+{
+    array_validate_index(array, index);
+
+    *(array->items + index) = item;
+}
+
 int array_pop(array_t *array)
 {
     if (array->size == 0) {
