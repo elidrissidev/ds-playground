@@ -23,11 +23,9 @@ array_t *bubble_sort(array_t *arr, int dir)
             int previous = array_at(sorted_arr, i - 1);
             int current = array_at(sorted_arr, i);
 
-            if (previous - current > 0 && dir == SORT_ASC) {
-                array_set(sorted_arr, i - 1, current);
-                array_set(sorted_arr, i, previous);
-                swaps++;
-            } else if (previous - current < 0 && dir == SORT_DESC) {
+            if ((previous - current > 0 && dir == SORT_ASC) ||
+                (previous - current < 0 && dir == SORT_DESC)
+            ) {
                 array_set(sorted_arr, i - 1, current);
                 array_set(sorted_arr, i, previous);
                 swaps++;
