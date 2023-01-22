@@ -18,10 +18,10 @@ array_t *selection_sort(array_t *arr, int dir)
         for (int i = 1; i < size; i++) {
             int current = array_at(unsorted_arr, i);
 
-            if (value - current > 0 && dir == SORT_ASC) {
+            if (value > current && dir == SORT_ASC) {
                 index = i;
                 value = current;
-            } else if (value - current < 0 && dir == SORT_DESC) {
+            } else if (value < current && dir == SORT_DESC) {
                 index = i;
                 value = current;
             }

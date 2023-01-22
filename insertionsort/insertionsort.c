@@ -17,8 +17,8 @@ array_t *insertion_sort(array_t *arr, int dir)
         int previous = array_at(sorted_arr, i - 1);
         int current = array_at(sorted_arr, i);
 
-        if ((previous - current > 0 && dir == SORT_ASC) ||
-            (previous - current < 0 && dir == SORT_DESC)
+        if ((previous > current && dir == SORT_ASC) ||
+            (previous < current && dir == SORT_DESC)
         ) {
             array_set(sorted_arr, i - 1, current);
             array_set(sorted_arr, i, previous);
@@ -28,8 +28,8 @@ array_t *insertion_sort(array_t *arr, int dir)
             previous = array_at(sorted_arr, j - 1);
             current = array_at(sorted_arr, j);
 
-            if ((previous - current > 0 && dir == SORT_ASC) ||
-                (previous - current < 0 && dir == SORT_DESC)
+            if ((previous > current && dir == SORT_ASC) ||
+                (previous < current && dir == SORT_DESC)
             ) {
                 array_set(sorted_arr, j - 1, current);
                 array_set(sorted_arr, j, previous);
